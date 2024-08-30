@@ -6,6 +6,7 @@ import getPaginationMeta from "@/utils/getPaginationMeta";
 import getPaginationParams from "@/utils/getPaginationParams";
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common"
 import { InjectRepository } from "@nestjs/typeorm";
+import { isUUID } from "class-validator";
 import { Repository } from "typeorm";
 
 @Injectable()
@@ -41,6 +42,9 @@ export class UrlService {
     }
 
     async findByIdOrError(urlId: string) {
+        if(!isUUID(urlId)){
+            throw new HttpException('url: given id is not uuid', HttpStatus.BAD_REQUEST)
+        }
         const url = await this.urlRepository.findOne({ where: {id: urlId }})
         if(!url) {
             throw new HttpException('url: url with given id not found', HttpStatus.NOT_FOUND)

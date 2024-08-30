@@ -13,5 +13,7 @@ declare namespace NodeJS {
 
     JWT_ACCESS_USER_TOKEN_EXPIRE_TIME: string;
     JWT_ACCESS_ADMIN_TOKEN_EXPIRE_TIME: string;
+
+    TELEGRAMM_BOT_TOKEN: string
   };
 }
